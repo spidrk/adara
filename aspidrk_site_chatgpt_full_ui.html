@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>نموذج ASPIDRK الكامل</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: #0a0a0a;
+      color: white;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #111;
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid #333;
+    }
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #ffcc00;
+    }
+      text-align: center;
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #ccc;
+    }
+    .input-wrapper {
+      background: #0a0a0a;
+      border: 1px solid #555;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .input-wrapper select,
+    .input-wrapper input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1rem;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      width: 100%;
+      padding: 1rem;
+      background: #222;
+      border: 1px solid #555;
+      border-radius: 12px;
+      color: white;
+      font-size: 1rem;
+      margin-top: 0.8rem;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #333;
+    }
+    footer {
+      text-align: center;
+      color: #777;
+      font-size: 0.8rem;
+      margin-top: 2rem;
+    }
+  
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+.btn i {
+  animation: iconPulse 2s infinite ease-in-out;
+  color: #ffcc00;
+}
+
+.input-wrapper {
+  background: rgba(25, 0, 50, 0.4);
+  border: 1px solid #bb33ff;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 15px rgba(187, 51, 255, 0.5),
+    inset 0 0 25px rgba(255, 255, 255, 0.05),
+    0 0 8px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+.input-wrapper:hover {
+  box-shadow:
+    0 0 25px rgba(204, 102, 255, 0.7),
+    inset 0 0 35px rgba(255, 255, 255, 0.08),
+    0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn {
+  background: rgba(45, 0, 75, 0.3);
+  border: 1px solid #bb33ff;
+  box-shadow:
+    0 0 15px rgba(187, 51, 255, 0.5),
+    inset 0 0 20px rgba(255, 255, 255, 0.05),
+    0 0 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease-in-out;
+}
+.btn:hover {
+  background: rgba(90, 0, 140, 0.4);
+  box-shadow:
+    0 0 25px rgba(204, 102, 255, 0.7),
+    inset 0 0 30px rgba(255, 255, 255, 0.08),
+    0 0 14px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes iconColorShift {
+  0% { color: #ff33cc; filter: drop-shadow(0 0 4px #ff33cc); }
+  25% { color: #33ccff; filter: drop-shadow(0 0 4px #33ccff); }
+  50% { color: #ccff33; filter: drop-shadow(0 0 4px #ccff33); }
+  75% { color: #ff9933; filter: drop-shadow(0 0 4px #ff9933); }
+  100% { color: #ff33cc; filter: drop-shadow(0 0 4px #ff33cc); }
+}
+
+.btn i {
+  animation: iconColorShift 4s infinite ease-in-out;
+}
+
+.input-wrapper,
+.btn {
+  background: rgba(10, 0, 0, 0.6);
+  border: 1px solid #440000;
+  border-radius: 12px;
+  box-shadow:
+    0 0 12px rgba(255, 0, 0, 0.15),
+    inset 0 0 20px rgba(80, 0, 0, 0.2),
+    0 0 6px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease-in-out;
+}
+
+.input-wrapper:hover,
+.btn:hover {
+  box-shadow:
+    0 0 18px rgba(255, 30, 30, 0.25),
+    inset 0 0 25px rgba(100, 0, 0, 0.25),
+    0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes iconPulse3D {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 5px #ff0066);
+  }
+  25% {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 0 8px #ff3300);
+  }
+  50% {
+    transform: scale(1.1) rotate(-5deg);
+    filter: drop-shadow(0 0 10px #ffcc00);
+  }
+  75% {
+    transform: scale(1.15) rotate(2deg);
+    filter: drop-shadow(0 0 8px #ff0066);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 5px #ff0066);
+  }
+}
+
+.btn svg {
+  animation: iconPulse3D 3s infinite ease-in-out;
+  transition: transform 0.3s ease;
+  width: 24px;
+  height: 24px;
+}
+
+.icon-animate {
+  animation: iconPulse3D 3s infinite ease-in-out;
+  width: 24px;
+  height: 24px;
+  margin-inline-start: 0.25rem;
+}
+
+.btn:nth-of-type(1) .icon-animate { animation-delay: 0s; color: #ff3399; }
+.btn:nth-of-type(2) .icon-animate { animation-delay: 0.3s; color: #33ccff; }
+.btn:nth-of-type(3) .icon-animate { animation-delay: 0.6s; color: #ffcc00; }
+.btn:nth-of-type(4) .icon-animate { animation-delay: 0.9s; color: #cc99ff; }
+.btn:nth-of-type(5) .icon-animate { animation-delay: 1.2s; color: #66ff66; }
+.icon-animate {
+  animation: iconPulse3D 3s infinite ease-in-out;
+  width: 24px;
+  height: 24px;
+  margin-inline-start: 0.25rem;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+@keyframes colorCycle {
+  0%   { stroke: #ff33cc; filter: drop-shadow(0 0 4px #ff33cc); }
+  25%  { stroke: #33ccff; filter: drop-shadow(0 0 4px #33ccff); }
+  50%  { stroke: #ffcc00; filter: drop-shadow(0 0 4px #ffcc00); }
+  75%  { stroke: #66ff66; filter: drop-shadow(0 0 4px #66ff66); }
+  100% { stroke: #ff33cc; filter: drop-shadow(0 0 4px #ff33cc); }
+}
+
+.icon-animate {
+  animation: colorCycle 5s infinite ease-in-out;
+  width: 24px;
+  height: 24px;
+  margin-inline-start: 0.25rem;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 5px #ff00cc44,
+      0 0 15px #9900ff66,
+      inset 0 0 8px #22002233;
+    border-color: #660066;
+  }
+  50% {
+    box-shadow:
+      0 0 10px #00ffff55,
+      0 0 25px #cc00ff88,
+      inset 0 0 14px #44004455;
+    border-color: #cc00ff;
+  }
+}
+
+.input-wrapper,
+.btn {
+  animation: neonPulse 6s infinite ease-in-out;
+  background: rgba(10, 10, 10, 0.6);
+  border-radius: 12px;
+  border: 1px solid #550055;
+  color: white;
+  backdrop-filter: blur(6px);
+  transition: all 0.4s ease;
+}
+.input-wrapper select,
+.input-wrapper input {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  width: 100%;
+}
+
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container > * {
+  opacity: 0;
+  animation: shatterIn 1s ease-out forwards;
+}
+
+.container > *:nth-child(1) { animation-delay: 0.1s; }
+.container > *:nth-child(2) { animation-delay: 0.3s; }
+.container > *:nth-child(3) { animation-delay: 0.5s; }
+.container > *:nth-child(4) { animation-delay: 0.7s; }
+.container > *:nth-child(5) { animation-delay: 0.9s; }
+.container > *:nth-child(6) { animation-delay: 1.1s; }
+.container > *:nth-child(7) { animation-delay: 1.3s; }
+.container > *:nth-child(8) { animation-delay: 1.5s; }
+.container > *:nth-child(9) { animation-delay: 1.7s; }
+.container > *:nth-child(10) { animation-delay: 1.9s; }
+.container > *:nth-child(11) { animation-delay: 2.1s; }
+
+  0% {
+    opacity: 0;
+    transform: translate3d(
+      calc(-50px + 100px * random()),
+      calc(-50px + 100px * random()),
+      0
+    ) rotate(20deg);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    filter: blur(0);
+  }
+}
+
+.container > * {
+  opacity: 0;
+  animation: shatterIn 0.8s ease-out forwards;
+}
+
+.container > *:nth-child(1) { animation-delay: 0.1s; }
+.container > *:nth-child(2) { animation-delay: 0.25s; }
+.container > *:nth-child(3) { animation-delay: 0.4s; }
+.container > *:nth-child(4) { animation-delay: 0.55s; }
+.container > *:nth-child(5) { animation-delay: 0.7s; }
+.container > *:nth-child(6) { animation-delay: 0.85s; }
+.container > *:nth-child(7) { animation-delay: 1s; }
+.container > *:nth-child(8) { animation-delay: 1.15s; }
+.container > *:nth-child(9) { animation-delay: 1.3s; }
+.container > *:nth-child(10) { animation-delay: 1.45s; }
+.container > *:nth-child(11) { animation-delay: 1.6s; }
+@keyframes shatterIn {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes pulseNeon {
+  0%, 100% {
+    box-shadow:
+      0 0 8px rgba(255, 0, 150, 0.3),
+      0 0 18px rgba(204, 0, 255, 0.25),
+      inset 0 0 10px rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 14px rgba(0, 255, 255, 0.35),
+      0 0 24px rgba(0, 204, 255, 0.3),
+      inset 0 0 14px rgba(255, 255, 255, 0.07);
+  }
+}
+
+.input-wrapper,
+.btn {
+  animation: pulseNeon 6s infinite ease-in-out;
+  background: rgba(12, 12, 12, 0.5);
+  border-radius: 12px;
+  border: 1px solid #550055;
+  color: white;
+  backdrop-filter: blur(6px);
+  transition: all 0.4s ease;
+}
+
+  0%, 100% { color: #ff33cc; text-shadow: 0 0 6px #ff33cc; }
+  50% { color: #33ccff; text-shadow: 0 0 6px #33ccff; }
+}
+
+  0%, 100% { color: #ffffff; text-shadow: 0 0 6px #cc00ff; }
+  50% { color: #ffcc00; text-shadow: 0 0 10px #ffcc00; }
+}
+
+label {
+}
+
+.btn {
+  animation: pulseNeon 6s infinite ease-in-out;
+}
+
+.btn span,
+.btn svg + span {
+}
+@keyframes buttonTextColorCycle {
+  0%   { color: #ff33cc; }
+  25%  { color: #33ccff; }
+  50%  { color: #ffcc00; }
+  75%  { color: #66ff66; }
+  100% { color: #ff33cc; }
+}
+
+.btn span {
+  font-size: 1.1rem;
+  font-weight: bold;
+  animation: buttonTextColorCycle 6s infinite ease-in-out;
+  display: inline-block;
+  margin-inline-start: 0.4rem;
+  vertical-align: middle;
+}
+
+@keyframes darkNeonFlow {
+  0%   { background-color: rgba(15, 5, 25, 0.6); }
+  50%  { background-color: rgba(25, 10, 35, 0.65); }
+  100% { background-color: rgba(15, 5, 25, 0.6); }
+}
+
+.btn {
+  animation: pulseNeon 6s infinite ease-in-out, darkNeonFlow 12s infinite ease-in-out;
+}
+
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  background: linear-gradient(90deg, #ff33cc, #33ccff, #ffcc00, #ff33cc);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: neonTitleFlow 6s ease-in-out infinite alternate;
+}
+
+  0% { background-position: 0% center; }
+  100% { background-position: 100% center; }
+}
+
+  font-size: 1rem;
+  text-align: center;
+  background: linear-gradient(90deg, #33ccff, #ff33cc, #ccff66, #33ccff);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: neonTitleFlow 8s ease-in-out infinite alternate;
+}
+  font-size: 1rem;
+  text-align: center;
+  color: white;
+  background: linear-gradient(90deg, #33ccff, #ff33cc, #ccff66, #33ccff);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: neonTitleFlow 8s ease-in-out infinite alternate;
+}
+  0%   { color: #33ccff; }
+  25%  { color: #ff33cc; }
+  50%  { color: #ccff66; }
+  75%  { color: #ffcc00; }
+  100% { color: #33ccff; }
+}
+
+  font-size: 1rem;
+  text-align: center;
+  color: #ffffff;
+  animation: datetimeColorCycle 6s infinite ease-in-out;
+}
+
+  margin-bottom: 0.25rem;
+}
+  margin-bottom: 1.5rem;
+}
+  font-size: 1rem;
+  text-align: center;
+  background: linear-gradient(90deg, #33ccff, #ff33cc, #ffcc00);
+  background-size: 300% auto;
+  color: #ffffff;
+  animation: neonTitleFlow 6s ease-in-out infinite alternate;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+  margin-bottom: 1rem;
+}
+  background: linear-gradient(270deg, #ff33cc, #33ccff, #ffcc00, #66ff66);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: neonFlowUnified 10s ease infinite;
+}
+
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+  display: inline-block;
+  background: linear-gradient(270deg, #ff33cc, #33ccff, #ffcc00, #66ff66);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: neonFlowUnified 10s ease infinite;
+}
+
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+  display: inline-block;
+  background: linear-gradient(270deg, #ff33cc, #33ccff, #ffcc00, #66ff66);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: neonFlowUnified 10s ease infinite;
+}
+
+.datetime {
+  color: #ffffff;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+  display: inline-block;
+  background: linear-gradient(180deg, #ff33cc, #33ccff, #ffcc00, #66ff66);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: neonFlowRTL 10s ease infinite;
+}
+
+@keyframes neonFlowRTL {
+  0% { background-position: 100% 50%; }
+  50% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(180deg, #ff33cc, #33ccff, #ffcc00, #66ff66);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation:
+    neonFlowRTL 10s ease infinite,
+    pulseDarkNeon 5s infinite ease-in-out;
+}
+
+@keyframes pulseDarkNeon {
+  0%, 100% {
+    text-shadow: 0 0 4px #550044, 0 0 8px #330022;
+  }
+  50% {
+    text-shadow: 0 0 10px #880066, 0 0 20px #330044;
+  }
+}
+  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 0.5rem 1.25rem;
+  border-radius: 1rem;
+  border: 2px solid rgba(136, 0, 102, 0.5);
+  box-shadow:
+    0 0 10px rgba(136, 0, 102, 0.5),
+    0 0 20px rgba(51, 0, 68, 0.4),
+    inset 0 0 10px rgba(51, 0, 68, 0.2);
+  background: linear-gradient(180deg, #ff33cc, #33ccff, #ffcc00, #66ff66);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation:
+    neonFlowRTL 10s ease infinite,
+    pulseDarkNeon 5s infinite ease-in-out;
+}
+@keyframes borderGlow {
+  0% {
+    box-shadow:
+      0 0 10px rgba(255, 51, 204, 0.4),
+      0 0 20px rgba(51, 0, 102, 0.3),
+      inset 0 0 10px rgba(51, 0, 68, 0.2);
+    border-color: rgba(136, 0, 102, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 18px rgba(255, 255, 102, 0.6),
+      0 0 30px rgba(255, 0, 255, 0.4),
+      inset 0 0 14px rgba(102, 0, 102, 0.3);
+    border-color: rgba(255, 204, 0, 0.6);
+  }
+  100% {
+    box-shadow:
+      0 0 10px rgba(255, 51, 204, 0.4),
+      0 0 20px rgba(51, 0, 102, 0.3),
+      inset 0 0 10px rgba(51, 0, 68, 0.2);
+    border-color: rgba(136, 0, 102, 0.5);
+  }
+}
+
+  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 0.5rem 1.25rem;
+  border-radius: 1rem;
+  border: 2px solid rgba(136, 0, 102, 0.5);
+  background: linear-gradient(180deg, #ff33cc, #33ccff, #ffcc00, #66ff66);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation:
+    neonFlowRTL 10s ease infinite,
+    pulseDarkNeon 5s infinite ease-in-out,
+    borderGlow 6s infinite ease-in-out;
+}
+to { width: 100% }
+}
+50% { border-color: #ff33cc }
+}
+.title {
+  font-size: 3.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+</style>
+</head>
+<body>
+<div class="container"><div class="datetime" id="datetime" style="text-align:center; color:#bb33ff; font-size:1rem; margin-top:10px; text-shadow: 0 0 6px #bb33ff;">--</div>
+<div class="datetime" id="datetime" style="text-align:center; color:#bb33ff; font-size:1rem; margin-top:10px; text-shadow: 0 0 6px #bb33ff;">--</div>
+<div class="datetime" id="datetime" style="text-align:center; color:#bb33ff; font-size:1rem; margin-top:10px; text-shadow: 0 0 6px #bb33ff;">--</div>
+<div class="title">إدارة الطلبات للمعاين</div>
+<label for="wallet">
+<svg class="lucide lucide-credit-card icon-animate" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="margin-inline-start: 0.4rem; vertical-align: middle;" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+<rect height="14" rx="2" width="20" x="2" y="5"></rect>
+<line x1="2" x2="22" y1="10" y2="10"></line>
+</svg>
+اختر المحفظة</label>
+<div class="input-wrapper">
+<select id="wallet">
+<option value="vodafone">فودافون كاش</option>
+<option value="orange">أورنج</option>
+<option value="etisalat">اتصالات</option>
+<option value="we">WE</option>
+<option value="instapay">InstaPay</option>
+</select>
+</div>
+<label for="phone">رقم الهاتف المصري (11 رقم)</label>
+<div class="input-wrapper" style="position: relative; display: flex; align-items: center; gap: 0.6rem;">
+<div style="background: #222; color: #fff; padding: 0.3rem 0.7rem; border-radius: 8px; font-size: 0.9rem; display: flex; align-items: center;">
+    🇪🇬 +20
+  </div>
+<input id="phone" maxlength="11" placeholder="01xxxxxxxxx" style="flex: 1; background: transparent; border: none; color: white; font-size: 1rem;" type="tel"/>
+</div>
+<button class="btn" onclick="sendWhatsApp()">
+<svg class="lucide lucide-message-circle icon-animate" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z"></path>
+</svg><span>إرسال واتساب</span></button>
+<button class="btn" onclick="handlePayment()">
+<svg class="lucide lucide-credit-card icon-animate" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<rect height="14" rx="2" width="20" x="2" y="5"></rect>
+<line x1="2" x2="22" y1="10" y2="10"></line>
+</svg><span>فتح كود الدفع</span></button>
+<button class="btn" onclick="window.open('https://forms.gle/5jtiAgmfedLfg4gW6')">
+<svg class="lucide lucide-form-input icon-animate" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<rect height="6" rx="2" width="18" x="3" y="4"></rect>
+<path d="M3 14h7"></path>
+<path d="M3 18h7"></path>
+<path d="M14 14h7"></path>
+</svg><span>فتح النموذج</span></button>
+<button class="btn" onclick="window.open('https://docs.google.com/spreadsheets/d/1bHNVQPYBRyKyHiKXOdJtZKsO4k-Oh3okygZwGPPQt-A')">
+<svg class="lucide lucide-table icon-animate" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<rect height="18" rx="2" width="18" x="3" y="3"></rect>
+<path d="M3 9h18"></path>
+<path d="M3 15h18"></path>
+<path d="M9 3v18"></path>
+<path d="M15 3v18"></path>
+</svg><span>قاعدة البيانات</span></button>
+<button class="btn" onclick="window.open('https://as-seven-pi.vercel.app/')">
+<svg class="lucide lucide-globe icon-animate" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="2" x2="22" y1="12" y2="12"></line>
+<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+</svg><span>ASPIDRK</span></button>
+<footer>© 2025 ASPIDRK</footer>
+</div>
+
+
+<script>
+function toggleChat() {
+  const chat = document.getElementById("chatbox");
+  chat.style.display = (chat.style.display === "none") ? "block" : "none";
+}
+
+async function sendMessage() {
+  const input = document.getElementById("chatInput");
+  const messagesDiv = document.getElementById("chatMessages");
+  const userText = input.value.trim();
+  if (!userText) return;
+
+  messagesDiv.innerHTML += `<div style='margin-bottom: 0.5rem; text-align: right;'><strong>أنت:</strong> ${userText}</div>`;
+  input.value = "";
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+  messagesDiv.innerHTML += `<div id='aiTyping' style='color:#999'>...جاري التفكير</div>`;
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+  try {
+    const res = await fetch("https://adara-eight.vercel.app/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userText })
+    });
+
+    const data = await res.json();
+    document.getElementById('aiTyping').remove();
+    messagesDiv.innerHTML += `<div style='margin-bottom: 0.5rem; text-align: left;'><strong>المساعد:</strong> ${data.reply}</div>`;
+  } catch (err) {
+    document.getElementById('aiTyping').remove();
+    messagesDiv.innerHTML += `<div style='color:red'>حدث خطأ أثناء الاتصال بالذكاء الاصطناعي</div>`;
+  }
+
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+</script>
+
+
+<!-- S Button -->
+<div id="chatToggle" onclick="toggleChat()" style="position: fixed; bottom: 16px; right: 16px; width: 40px; height: 40px; background: #bb33ff; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-family: Cairo, sans-serif; font-size: 1.1rem; font-weight: bold; box-shadow: 0 0 10px rgba(187, 51, 255, 0.7); z-index: 9999;" title="مساعد">
+  S
+</div>
+
+<!-- Chat Box -->
+<div id="chatbox" style="position: fixed; bottom: 70px; right: 16px; width: 240px; max-height: 300px; background: rgba(20,0,30,0.95); border: 1px solid #bb33ff; border-radius: 14px; box-shadow: 0 0 12px rgba(187, 51, 255, 0.5); font-family: Cairo, sans-serif; overflow: hidden; z-index: 9998; display: none;">
+  <div style="background: #1a001f; padding: 0.6rem 1rem; color: #ffccff; font-weight: bold; text-align: center;">مساعد ASPIDRK</div>
+  <div id="chatMessages" style="padding: 1rem; height: 160px; overflow-y: auto; font-size: 0.9rem; color: white;"></div>
+  <div style="display: flex; border-top: 1px solid #bb33ff;">
+    <input id="chatInput" type="text" placeholder="اكتب سؤالك..." style="flex: 1; padding: 0.5rem; border: none; background: #12001a; color: white;" />
+    <button onclick="sendMessage()" style="background: #bb33ff; color: white; border: none; padding: 0 1rem; cursor: pointer;">إرسال</button>
+  </div>
+</div>
+
+
+<script>
+setInterval(() => {
+  const now = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const time = now.toLocaleTimeString('ar-EG');
+  const date = now.toLocaleDateString('ar-EG', options);
+  const dateDiv = document.getElementById("datetime");
+  if (dateDiv) {
+    dateDiv.textContent = `${date} - ${time}`;
+  }
+}, 1000);
+</script>
+
+</body>
+</html>
