@@ -619,6 +619,7 @@ to { width: 100% }
 <body>
 <div class="container"><div class="datetime" id="datetime" style="text-align:center; color:#bb33ff; font-size:1rem; margin-top:10px; text-shadow: 0 0 6px #bb33ff;">--</div>
 <div class="datetime" id="datetime" style="text-align:center; color:#bb33ff; font-size:1rem; margin-top:10px; text-shadow: 0 0 6px #bb33ff;">--</div>
+<div class="datetime" id="datetime" style="text-align:center; color:#bb33ff; font-size:1rem; margin-top:10px; text-shadow: 0 0 6px #bb33ff;">--</div>
 <div class="title">إدارة الطلبات للمعاين</div>
 <label for="wallet">
 <svg class="lucide lucide-credit-card icon-animate" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="margin-inline-start: 0.4rem; vertical-align: middle;" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -675,6 +676,7 @@ to { width: 100% }
 <footer>© 2025 ASPIDRK</footer>
 </div>
 
+
 <script>
 function toggleChat() {
   const chat = document.getElementById("chatbox");
@@ -695,9 +697,15 @@ async function sendMessage() {
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
   try {
-    const reply = await getAIReply(userText);
+    const res = await fetch("https://adara-oorx.vercel.app/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userText })
+    });
+
+    const data = await res.json();
     document.getElementById('aiTyping').remove();
-    messagesDiv.innerHTML += `<div style='margin-bottom: 0.5rem; text-align: left;'><strong>المساعد:</strong> ${reply}</div>`;
+    messagesDiv.innerHTML += `<div style='margin-bottom: 0.5rem; text-align: left;'><strong>المساعد:</strong> ${data.reply}</div>`;
   } catch (err) {
     document.getElementById('aiTyping').remove();
     messagesDiv.innerHTML += `<div style='color:red'>حدث خطأ أثناء الاتصال بالذكاء الاصطناعي</div>`;
@@ -705,19 +713,15 @@ async function sendMessage() {
 
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
-
-async function getAIReply(userText) {
-  return "هذه إجابة تجريبية من مساعد ASPIDRK.";
-}
 </script>
 
 
-<!-- S Button to Toggle Chat -->
+<!-- S Button -->
 <div id="chatToggle" onclick="toggleChat()" style="position: fixed; bottom: 16px; right: 16px; width: 40px; height: 40px; background: #bb33ff; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-family: Cairo, sans-serif; font-size: 1.1rem; font-weight: bold; box-shadow: 0 0 10px rgba(187, 51, 255, 0.7); z-index: 9999;" title="مساعد">
   S
 </div>
 
-
+<!-- Chat Box -->
 <div id="chatbox" style="position: fixed; bottom: 70px; right: 16px; width: 240px; max-height: 300px; background: rgba(20,0,30,0.95); border: 1px solid #bb33ff; border-radius: 14px; box-shadow: 0 0 12px rgba(187, 51, 255, 0.5); font-family: Cairo, sans-serif; overflow: hidden; z-index: 9998; display: none;">
   <div style="background: #1a001f; padding: 0.6rem 1rem; color: #ffccff; font-weight: bold; text-align: center;">مساعد ASPIDRK</div>
   <div id="chatMessages" style="padding: 1rem; height: 160px; overflow-y: auto; font-size: 0.9rem; color: white;"></div>
